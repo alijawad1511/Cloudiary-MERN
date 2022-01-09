@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/userRegistration')
+mongoose.connect('mongodb://localhost:27017/iNotebook')
 .then(() => {
     console.log('Connected to MongoDB Successfully...');
 }).catch((e) => {
