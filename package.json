@@ -9,6 +9,7 @@
   "author": "Syed Ali Jawad",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.2",
     "mongoose": "^6.1.5"
   },
