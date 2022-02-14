@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
 
     // Check if no token
     if (!token) {
-        return res.sendStatus(401).json({ msg: "No Token! Access Denied" })
+        return res.status(401).json({ msg: "No Token! Access Denied" })
     }
 
     // Verify if token exists
@@ -18,7 +18,7 @@ module.exports = function (req, res, next) {
         next();
     }
     catch (err) {
-        res.status(401).json({ msg: "no token found. Access Denied" });
+        res.status(401).json({ msg: "no token found. Access Denied (Error in Catch)" });
     }
 
 }

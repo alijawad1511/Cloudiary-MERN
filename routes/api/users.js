@@ -120,17 +120,19 @@ router.post('/login', [
 router.post('/profile', auth, async (req, res) => {
 
     try {
+
         const userId = req.user.id;
-        const user = await User.findById(userId).select(-password);
+        const user = await User.findById(userId).select("-password");
         if (!user) {
             res.status(401).json({ error: "Unauthorized Person! Access Denied" });
         }
 
         res.send(user);
 
+
     } catch (error) {
         console.log(error.message);
-        res.status(505).send('Internal Server Error');
+        res.status(505).send('Internal Server Error!');
     }
 
 })
