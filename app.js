@@ -11,6 +11,9 @@ app.use(express.json());
 const users = require('./routes/api/users');
 app.use('/api/users', users);
 
+const notes = require('./routes/api/notes');
+app.use('/api/notes',notes);
+
 
 
 app.get('/', (req, res) => {
