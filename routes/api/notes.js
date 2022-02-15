@@ -64,4 +64,72 @@ router.post('/addnote', auth, [
 
 
 
+//@route    PUT api/notes/updatenote
+//@desc     Update a Note
+//@access   private
+router.put('/updatenote/:id', auth, async (req, res) => {
+
+    try {
+
+        const { title, description, tag } = req.body;
+
+        let updatedNote = {};
+
+        // Check either field is updated or not by user
+        if (title) { updatedNote.title = title };
+        if (description) { updatedNote.description = description };
+        if (tag) { updatedNote.tag = tag };
+
+
+        // Find Note to be Updated and Update
+        let note = await Note.findById(req.params.id);
+
+        if (!note) {
+            // 404 Not Found Error
+            return res.status(404).json({ error: "Note not found!" });
+        }
+
+        // Checking User is authorized or not
+        if (note.user.toString() !== req.user.id) {
+            return res.status(401).json({ error: "Unauthorized Access!" });
+        }
+
+        note = await Note.findByIdAndUpdate(req.params.id, {$set: updatedNote},{new: true});
+        res.json({ note });
+
+
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(505).send('Internal Server Error');
+    }
+
+
+
+});
+
+
+
+//@route    DELETE api/notes/deletenote
+//@desc     Delete a Note
+//@access   private
+router.delete('/deletenote/:id', auth, async (req, res) => {
+
+    // Find Note to be Deleted and Delete
+    let note = await Note.findById(req.params.id);
+    if (!note) { return res.status(404).json({ error: "Note not found" }) };
+
+
+     // Authenticating Logged In User   
+    if (note.user.toString()!== req.user.id) {
+        return res.status(401).json({ error: "Unauthorized Access!" });
+    }
+
+    note = await Note.findByIdAndDelete(req.params.id);
+    res.json({ success: "Note has been deleted successfully" });
+
+});
+
+
+
 module.exports = router;
