@@ -1,7 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { NoteContext } from '../contexts/NoteContext';
+import { useNavigate } from "react-router-dom";
 
 const AddNote = () => {
+
+    let navigate = useNavigate();
 
     const { addNote } = useContext(NoteContext);
     const [note, setNote] = useState({ title: "", description: "", tag: "" });
@@ -13,7 +16,8 @@ const AddNote = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         addNote(note);
-        setNote({ title: "", description: "", tag: "" })
+        setNote({ title: "", description: "", tag: "" });
+        navigate('/');
     }
 
 
