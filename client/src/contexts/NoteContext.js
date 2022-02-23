@@ -10,7 +10,6 @@ export const NoteProvider = (props) => {
     const initialNotes = [];
     const [notes, setNotes] = useState(initialNotes);
 
-
     // Fetch All Notes from MongoDB
     const getAllNotes = async () => {
 
@@ -48,9 +47,9 @@ export const NoteProvider = (props) => {
 
     // Edit Note Function
     const editNote = async (id, title, description, tag) => {
-
+        
         const response = await fetch(`${HOST}/api/notes/updatenote/${id}`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIwYTcwNmUwZjU2OThmYWY1OGRmYWFmIn0sImlhdCI6MTY0NDg1NjMwOH0.4Zi5cW_6IlVPlFlNjmHFqu95W8vylZseoDonTZ8db5c'
@@ -58,7 +57,23 @@ export const NoteProvider = (props) => {
             body: JSON.stringify({ title, description, tag })
         });
 
-        const json = await response.json();
+        await response.json();
+
+        // Edit in Client View (Frontend)
+        let updatedNotes = JSON.parse(JSON.stringify(notes))//Copying 'notes' into 'newNotes'
+
+        for (let i = 0; i < updatedNotes.length; i++) {
+            const element = updatedNotes[i];
+
+            if (element._id === id) {
+                updatedNotes[i].title = title;
+                updatedNotes[i].description = description;
+                updatedNotes[i].tag = tag;
+                break;
+            }
+        }
+
+        setNotes(updatedNotes);
 
     }
 
@@ -75,6 +90,7 @@ export const NoteProvider = (props) => {
         });
 
         const json = await response.json();
+        console.log(json);
  
         // Re-Render Frontend
         const newNotes = notes.filter((json) => { return json._id !== id });
