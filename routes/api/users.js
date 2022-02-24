@@ -24,7 +24,7 @@ router.post('/register', [
     // Bad Request 400
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success: false, errors: errors.array() });
     }
 
     try {
@@ -32,7 +32,7 @@ router.post('/register', [
         // Check Email already exist
         let user = await User.findOne({ email });
         if (user) {
-            return res.status(400).json({ error: "Sorry, this email can't be registered. Let's try another one." });
+            return res.status(400).json({ success: false, error: "Sorry, this email can't be registered. Let's try another one." });
         }
 
         let newUser = new User({
@@ -47,7 +47,7 @@ router.post('/register', [
 
         // Create new User in DB
         user = await newUser.save();
-        res.json({ user });
+        res.json({ success: true, user });
 
     } catch (error) {
         console.log(error.message);
@@ -68,7 +68,7 @@ router.post('/login', [
     // Bad Request 400
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success: false, errors: errors.array() });
     }
 
     try {
@@ -77,7 +77,7 @@ router.post('/login', [
         let user = await User.findOne({ email });
 
         if (!user) {
-            res.status(401).json({ error: "Invalid Username or Password" });
+            res.status(401).json({ success: false, error: "Invalid Username or Password" });
         } else {
 
             // Password Matching
@@ -91,13 +91,11 @@ router.post('/login', [
                     }
                 };
                 const token = jwt.sign(payload, JWT_SECRET);
-                res.json({ token });
+                res.json({ success: true, token });
 
             } else {
-
                 // 401 : Unauthorized Access / Invalid Credentials
-                res.status(401).json({ error: "Invalid Username or Password" });
-
+                res.status(401).json({ success: false, error: "Invalid Username or Password" });
             }
 
         }
