@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { NoteContext } from '../contexts/NoteContext';
 import Note from './Note';
 
-const Notes = () => {
+const Notes = ({showAlert}) => {
 
     const { notes, getAllNotes, editNote } = useContext(NoteContext);
 
@@ -23,10 +23,11 @@ const Notes = () => {
         setNote({ ...note, [e.target.name]: e.target.value });
     }
 
-    const handleSave = () => {
+    const handleSave = (e) => {
+        e.preventDefault();
         editNote(note.id, note.editTitle, note.editDesc, note.editTag);
         closeModal.current.click();
-
+        showAlert('Note updated...', 'success');
     }
 
 
@@ -36,7 +37,7 @@ const Notes = () => {
             <div className='row'>
                 <h4 className='text-center text-danger'>{notes.length === 0 && 'No Notes to display'}</h4>
                 {notes.map((note) => {
-                    return <Note key={note._id} updateNote={updateNote} note={note} />
+                    return <Note key={note._id} updateNote={updateNote} note={note} showAlert={showAlert} />
                 })}
             </div>
 
@@ -49,7 +50,7 @@ const Notes = () => {
                             <h5 className="modal-title" id="exampleModalLabel">Edit Note</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form>
+                        <form onSubmit={handleSave}>
                             <div className="modal-body">
                                 <div className="mb-3">
                                     <label htmlFor="title" className="form-label">Title</label>
@@ -66,7 +67,7 @@ const Notes = () => {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" ref={closeModal} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" onClick={handleSave} className="btn btn-primary">Save Changes</button>
+                                <button type="submit" className="btn btn-primary">Save Changes</button>
                             </div>
                         </form>
                     </div>
