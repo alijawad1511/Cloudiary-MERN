@@ -13,7 +13,7 @@ const AddNote = () => {
         setNote({...note, [e.target.name]: e.target.value});
     }
 
-    const onSubmit = (e) => {
+    const submitForm = (e) => {
         e.preventDefault();
         addNote(note);
         setNote({ title: "", description: "", tag: "" }); // empty all fields
@@ -23,7 +23,7 @@ const AddNote = () => {
 
     return (
         <>
-            <form className='mt-5 w-50 m-auto p-5 bg-light rounded'>
+            <form onSubmit={submitForm} className='mt-5 w-50 m-auto p-5 bg-light rounded'>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input type="text" className="form-control" value={note.title} onChange={onChange} name='title' minLength={3} required/>
@@ -36,7 +36,7 @@ const AddNote = () => {
                     <label htmlFor="tag" className="form-label">Tag</label>
                     <input type="text" className="form-control" value={note.tag} onChange={onChange} name='tag' minLength={3} required/>
                 </div>
-                <button type="submit" onClick={onSubmit} className="btn btn-primary mt-3">Add Note</button>
+                <button type="submit" className="btn btn-primary mt-3">Add Note</button>
             </form>
         </>
     );
