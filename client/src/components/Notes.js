@@ -1,4 +1,4 @@
-import React, { useState,useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { NoteContext } from '../contexts/NoteContext';
 import Note from './Note';
 
@@ -8,7 +8,7 @@ const Notes = () => {
 
     useEffect(() => {
         getAllNotes();
-    }, [])
+    })
 
     const modal = useRef(null);
     const closeModal = useRef(null);
@@ -16,7 +16,7 @@ const Notes = () => {
 
     const updateNote = (currentNote) => {
         modal.current.click();
-        setNote({id: currentNote._id,editTitle: currentNote.title, editDesc: currentNote.description, editTag: currentNote.tag});
+        setNote({ id: currentNote._id, editTitle: currentNote.title, editDesc: currentNote.description, editTag: currentNote.tag });
     }
 
     const onChange = (e) => {
@@ -34,6 +34,7 @@ const Notes = () => {
         <>
             <h1 className='text-center py-3'>My Notes</h1>
             <div className='row'>
+                <h4 className='text-center text-danger'>{notes.length === 0 && 'No Notes to display'}</h4>
                 {notes.map((note) => {
                     return <Note key={note._id} updateNote={updateNote} note={note} />
                 })}
@@ -45,11 +46,11 @@ const Notes = () => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Edit Note</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
-                            <form>
+                        <form>
+                            <div className="modal-body">
                                 <div className="mb-3">
                                     <label htmlFor="title" className="form-label">Title</label>
                                     <input type="text" className="form-control" onChange={onChange} name='editTitle' value={note.editTitle} />
@@ -62,12 +63,12 @@ const Notes = () => {
                                     <label htmlFor="tag" className="form-label">Tag</label>
                                     <input type="text" className="form-control" onChange={onChange} value={note.editTag} name='editTag' />
                                 </div>
-                            </form>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" ref={closeModal} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" onClick={handleSave} className="btn btn-primary">Save Changes</button>
-                        </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" ref={closeModal} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" onClick={handleSave} className="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -39,9 +39,9 @@ export const NoteProvider = (props) => {
             body: JSON.stringify({ title, description, tag })
         });
 
-        const json = await response.json();
+        const note = await response.json();
 
-        setNotes(notes.concat(json));
+        setNotes(notes.concat(note));
         // alert('Note Added');
     }
 
@@ -90,7 +90,6 @@ export const NoteProvider = (props) => {
         });
 
         const json = await response.json();
-        console.log(json);
  
         // Re-Render Frontend
         const newNotes = notes.filter((json) => { return json._id !== id });
