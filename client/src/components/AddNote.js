@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { NoteContext } from '../contexts/NoteContext';
 import { useNavigate } from "react-router-dom";
 
-const AddNote = () => {
+const AddNote = ({showAlert}) => {
 
     let navigate = useNavigate();
 
@@ -18,6 +18,7 @@ const AddNote = () => {
         addNote(note);
         setNote({ title: "", description: "", tag: "" }); // empty all fields
         navigate('/');
+        showAlert('Note added...', 'success');
     }
 
 

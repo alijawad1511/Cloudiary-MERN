@@ -25,6 +25,7 @@ const Signup = (props) => {
     console.log(json);
     if (json.success) {
       navigate('/login');
+      props.showAlert('Signup successfully...', 'success');
     } else {
       props.showAlert(json.error, 'danger');
     }
