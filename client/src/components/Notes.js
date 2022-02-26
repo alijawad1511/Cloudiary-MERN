@@ -1,13 +1,19 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
-import { NoteContext } from '../contexts/NoteContext';
+import React, { useState, useContext, useEffect, useRef } from 'react'
+import { NoteContext } from '../contexts/NoteContext'
+import { useNavigate } from 'react-router-dom'
 import Note from './Note';
 
 const Notes = ({showAlert}) => {
 
     const { notes, getAllNotes, editNote } = useContext(NoteContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        getAllNotes();
+        if (localStorage.getItem('x-auth-token')) {
+            getAllNotes();
+        } else {
+            navigate('/login');
+        }
     })
 
     const modal = useRef(null);

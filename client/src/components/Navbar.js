@@ -1,15 +1,21 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
 
     let location = useLocation();
+    const navigate = useNavigate();
 
     // useEffect() return location object whenever location/URL of a Page is changed
     useEffect(() => {
 
     }, [location])
+
+    const handleLogout = () => {
+        localStorage.removeItem('x-auth-token');
+        navigate('/login');
+    }
 
     return (
         <>
@@ -31,10 +37,12 @@ const Navbar = () => {
                                 <Link className={`nav-link ${location.pathname === '/addnote' ? 'active' : ''}`} to="/addnote">Add Note</Link>
                             </li>
                         </ul>
-                        <div className="">
-                            <Link className='btn btn-secondary me-3' to='/login'>Login</Link>
-                            <Link className='btn btn-primary' to='/signup'>Sign Up</Link>
-                        </div>
+                        {
+                            localStorage.getItem('x-auth-token') ? <button onClick={handleLogout} className='btn btn-danger '><i className="fa-solid fa-right-from-bracket me-2"></i>Logout</button>: <div>
+                                <Link className='btn btn-secondary me-3' to='/login'>Login</Link>
+                                <Link className='btn btn-primary' to='/signup'>Sign Up</Link>
+                            </div>
+                        }
                     </div>
                 </div>
             </nav>
