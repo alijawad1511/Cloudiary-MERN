@@ -1,4 +1,4 @@
-# eCinema
+# eDiary
 
 #### If you like my work, please start following this project's author [Syed Ali Jawad](https://github.com/alijawad1511) and don't hesitate to give star⭐ to my project to show your ❤️❤️ and support
 
