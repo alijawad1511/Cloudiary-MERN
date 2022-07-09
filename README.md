@@ -8,14 +8,17 @@
 LINK WILL BE PROVIDED SOON
 
 ## 🛠️ Built With:
-- HTML
-- CSS
-- JavaScript
+#### Frontend
 - Bootstrap
-- React JS
+- ReactJS
+
+#### Backend
 - NodeJS
 - ExpressJS
+
+#### Database
 - MongoDB
+
 
 ## 📝 About Project
 eDiary is an app which can be used to write notes. You can write your daily routine
