@@ -18,7 +18,7 @@ LINK WILL BE PROVIDED SOON
 - MongoDB
 
 ## 📝 About Project
-iNotebook is an app which can be used to write notes. You can write your daily routine
+eDiary is an app which can be used to write notes. You can write your daily routine
 and work which you think you can forget. You can see your notes anytime.
 
 # 📝 Quick Use
