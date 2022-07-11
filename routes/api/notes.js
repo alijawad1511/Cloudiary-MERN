@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { body, validationResult } = require('express-validator');
+const { body,validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 const Note = require('../../models/Note');
 
@@ -8,7 +8,7 @@ const Note = require('../../models/Note');
 //@route    GET api/notes/usernotes
 //@desc     Fetch User Notes
 //@access   private
-router.get('/usernotes', auth, async (req, res) => {
+router.get('/usernotes',auth,async (req,res) => {
     try {
 
         const notes = await Note.find({ user: req.user.id });
@@ -27,14 +27,14 @@ router.get('/usernotes', auth, async (req, res) => {
 //@route    POST api/notes/addnote
 //@desc     Add a Note
 //@access   private
-router.post('/addnote', auth, [
-    body('title', 'Title must be at least 3 characters long').isLength({ min: 3 }),
-    body('description', 'Description must be at least 5 characters long').isLength({ min: 5 }),
-], async (req, res) => {
+router.post('/addnote',auth,[
+    body('title','Title must be at least 3 characters long').isLength({ min: 3 }),
+    body('description','Description must be at least 5 characters long').isLength({ min: 5 }),
+],async (req,res) => {
 
     try {
 
-        const { title, description, tag } = req.body;
+        const { title,description } = req.body;
 
         // Bad Request 400
         const errors = validationResult(req);
@@ -45,7 +45,6 @@ router.post('/addnote', auth, [
         const note = new Note({
             title,
             description,
-            tag,
             user: req.user.id
         });
 
@@ -67,18 +66,17 @@ router.post('/addnote', auth, [
 //@route    PUT api/notes/updatenote
 //@desc     Update a Note
 //@access   private
-router.put('/updatenote/:id', auth, async (req, res) => {
+router.put('/updatenote/:id',auth,async (req,res) => {
 
     try {
 
-        const { title, description, tag } = req.body;
+        const { title,description } = req.body;
 
         let updatedNote = {};
 
         // Check either field is updated or not by user
         if (title) { updatedNote.title = title };
         if (description) { updatedNote.description = description };
-        if (tag) { updatedNote.tag = tag };
 
 
         // Find Note to be Updated and Update
@@ -94,7 +92,7 @@ router.put('/updatenote/:id', auth, async (req, res) => {
             return res.status(401).json({ error: "Unauthorized Access!" });
         }
 
-        note = await Note.findByIdAndUpdate(req.params.id, {$set: updatedNote},{new: true});
+        note = await Note.findByIdAndUpdate(req.params.id,{ $set: updatedNote },{ new: true });
         res.json({ note });
 
 
@@ -113,15 +111,15 @@ router.put('/updatenote/:id', auth, async (req, res) => {
 //@route    DELETE api/notes/deletenote
 //@desc     Delete a Note
 //@access   private
-router.delete('/deletenote/:id', auth, async (req, res) => {
+router.delete('/deletenote/:id',auth,async (req,res) => {
 
     // Find Note to be Deleted and Delete
     let note = await Note.findById(req.params.id);
     if (!note) { return res.status(404).json({ error: "Note not found" }) };
 
 
-     // Authenticating Logged In User   
-    if (note.user.toString()!== req.user.id) {
+    // Authenticating Logged In User   
+    if (note.user.toString() !== req.user.id) {
         return res.status(401).json({ error: "Unauthorized Access!" });
     }
 

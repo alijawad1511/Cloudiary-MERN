@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React,{ useState,useContext,useEffect,useRef } from 'react'
 import { NoteContext } from '../contexts/NoteContext'
 import { useNavigate } from 'react-router-dom'
 import Note from './Note';
 
-const Notes = ({showAlert}) => {
+const Notes = ({ showAlert }) => {
 
-    const { notes, getAllNotes, editNote } = useContext(NoteContext);
+    const { notes,getAllNotes,editNote } = useContext(NoteContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,22 +18,22 @@ const Notes = ({showAlert}) => {
 
     const modal = useRef(null);
     const closeModal = useRef(null);
-    const [note, setNote] = useState({ id: "", editTitle: "", editDesc: "", editTag: "" });
+    const [note,setNote] = useState({ id: "",editTitle: "",editDesc: "" });
 
     const updateNote = (currentNote) => {
         modal.current.click();
-        setNote({ id: currentNote._id, editTitle: currentNote.title, editDesc: currentNote.description, editTag: currentNote.tag });
+        setNote({ id: currentNote._id,editTitle: currentNote.title,editDesc: currentNote.description });
     }
 
     const onChange = (e) => {
-        setNote({ ...note, [e.target.name]: e.target.value });
+        setNote({ ...note,[e.target.name]: e.target.value });
     }
 
     const handleSave = (e) => {
         e.preventDefault();
-        editNote(note.id, note.editTitle, note.editDesc, note.editTag);
+        editNote(note.id,note.editTitle,note.editDesc);
         closeModal.current.click();
-        showAlert('Note updated...', 'success');
+        showAlert('Note updated...','success');
     }
 
 
@@ -65,10 +65,6 @@ const Notes = ({showAlert}) => {
                                 <div className="form-floating">
                                     <textarea className="form-control" onChange={onChange} value={note.editDesc} placeholder="Describe your note here" name="editDesc" style={{ height: "100px" }}></textarea>
                                     <label htmlFor="description">Description</label>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="tag" className="form-label">Tag</label>
-                                    <input type="text" className="form-control" onChange={onChange} value={note.editTag} name='editTag' />
                                 </div>
                             </div>
                             <div className="modal-footer">

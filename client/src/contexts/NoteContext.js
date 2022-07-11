@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React,{ createContext,useState } from 'react';
 
 export const NoteContext = createContext();
 
@@ -8,13 +8,13 @@ export const NoteProvider = (props) => {
     const HOST = 'http://localhost:5000';
 
     const initialNotes = [];
-    const [notes, setNotes] = useState(initialNotes);
+    const [notes,setNotes] = useState(initialNotes);
 
     // Fetch All Notes from MongoDB
     const getAllNotes = async () => {
 
         // API Call
-        const response = await fetch(`${HOST}/api/notes/usernotes`, {
+        const response = await fetch(`${HOST}/api/notes/usernotes`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,16 +27,16 @@ export const NoteProvider = (props) => {
     }
 
     // Add Note Function
-    const addNote = async ({title,description,tag}) => {
+    const addNote = async ({ title,description }) => {
 
         // API Call
-        const response = await fetch(`${HOST}/api/notes/addnote`, {
+        const response = await fetch(`${HOST}/api/notes/addnote`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': localStorage.getItem('x-auth-token')
             },
-            body: JSON.stringify({ title, description, tag })
+            body: JSON.stringify({ title,description })
         });
 
         const note = await response.json();
@@ -46,15 +46,15 @@ export const NoteProvider = (props) => {
     }
 
     // Edit Note Function
-    const editNote = async (id, title, description, tag) => {
-        
-        const response = await fetch(`${HOST}/api/notes/updatenote/${id}`, {
+    const editNote = async (id,title,description) => {
+
+        const response = await fetch(`${HOST}/api/notes/updatenote/${id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': localStorage.getItem('x-auth-token')
             },
-            body: JSON.stringify({ title, description, tag })
+            body: JSON.stringify({ title,description })
         });
 
         await response.json();
@@ -68,7 +68,6 @@ export const NoteProvider = (props) => {
             if (element._id === id) {
                 updatedNotes[i].title = title;
                 updatedNotes[i].description = description;
-                updatedNotes[i].tag = tag;
                 break;
             }
         }
@@ -79,9 +78,9 @@ export const NoteProvider = (props) => {
 
     // Delete a Note
     const deleteNote = async (id) => {
-        
+
         // Delete Note API Call
-        const response = await fetch(`${HOST}/api/notes/deletenote/${id}`, {
+        const response = await fetch(`${HOST}/api/notes/deletenote/${id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -90,7 +89,7 @@ export const NoteProvider = (props) => {
         });
 
         const json = await response.json();
- 
+
         // Re-Render Frontend
         const newNotes = notes.filter((json) => { return json._id !== id });
         setNotes(newNotes);
@@ -99,7 +98,7 @@ export const NoteProvider = (props) => {
 
     return (
         // Wrap All the Components to which you have to pass Information/Props
-        <NoteContext.Provider value={{ notes, setNotes, getAllNotes, addNote, editNote, deleteNote }}>
+        <NoteContext.Provider value={{ notes,setNotes,getAllNotes,addNote,editNote,deleteNote }}>
             {props.children}
         </NoteContext.Provider>
     )

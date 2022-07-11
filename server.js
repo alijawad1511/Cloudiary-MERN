@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 require('./config/db');
@@ -11,19 +12,19 @@ app.use(cors());
 
 // Routes Files
 const users = require('./routes/api/users');
-app.use('/api/users', users);
+app.use('/api/users',users);
 
 const notes = require('./routes/api/notes');
 app.use('/api/notes',notes);
 
 
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+app.get('/',(req,res) => {
+  res.send('Hello World!')
 })
 
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT,() => {
   console.log(`iNotebook Backend is listening at http://localhost:${PORT}`)
 })
