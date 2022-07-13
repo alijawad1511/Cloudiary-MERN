@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = 'jwt_scret';
+// const JWT_SECRET = 'jwt_scret';
 
 
-module.exports = function (req, res, next) {
+module.exports = function (req,res,next) {
     // Get the token from the header
     const token = req.header("x-auth-token");
 
@@ -13,12 +13,12 @@ module.exports = function (req, res, next) {
 
     // Verify if token exists
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token,process.env.JWT_SECRET);
         req.user = decoded.user;
         next();
     }
     catch (err) {
-        res.status(401).json({ msg: "no token found. Access Denied (Error in Catch)" });
+        res.status(401).json({ msg: "No token found. Access Denied (Error in Catch)" });
     }
 
 }
