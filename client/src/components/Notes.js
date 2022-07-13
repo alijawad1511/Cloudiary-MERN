@@ -2,8 +2,10 @@ import React,{ useState,useContext,useEffect,useRef } from 'react'
 import { NoteContext } from '../contexts/NoteContext'
 import { useNavigate } from 'react-router-dom'
 import Note from './Note';
+import swal from 'sweetalert';
+import Loading from './Loading';
 
-const Notes = ({ showAlert }) => {
+const Notes = () => {
 
     const { notes,getAllNotes,editNote } = useContext(NoteContext);
     const navigate = useNavigate();
@@ -29,22 +31,22 @@ const Notes = ({ showAlert }) => {
         setNote({ ...note,[e.target.name]: e.target.value });
     }
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
         editNote(note.id,note.editTitle,note.editDesc);
-        closeModal.current.click();
-        showAlert('Note updated...','success');
+        await closeModal.current.click();
+        swal("Good job!","Note updated successfully","success");
     }
 
 
     return (
         <>
-            <h1 className='text-center py-3'>My Notes</h1>
-            <div className='row'>
+            <div className='row mt-3'>
                 <h4 className='text-center text-danger'>{notes.length === 0 && 'No Notes to display'}</h4>
                 {notes.map((note) => {
-                    return <Note key={note._id} updateNote={updateNote} note={note} showAlert={showAlert} />
-                })}
+                    return <Note key={note._id} updateNote={updateNote} note={note} />
+                })
+                }
             </div>
 
             {/* Modal */}

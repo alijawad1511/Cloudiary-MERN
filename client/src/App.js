@@ -36,14 +36,13 @@ function App() {
       <NoteProvider>
         <Router>
           <Navbar />
-          <Alert alert={alert} />
           <div className="container">
             <Routes>
-              <Route path="/" element={<Home showAlert={showAlert} />} />
+              <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route path="/addnote" element={<AddNote showAlert={showAlert} />} />
-              <Route path="/login" element={<Login showAlert={showAlert} />} />
-              <Route path="/signup" element={<Signup showAlert={showAlert} />} />
+              <Route path="/addnote" element={<AddNote />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
             </Routes>
           </div>
         </Router>

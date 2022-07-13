@@ -1,39 +1,44 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React,{ useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
-const Signup = (props) => {
+const Signup = () => {
 
   let navigate = useNavigate();
-  const [user, setUser] = useState({ name: "", email: "", password: "" });
+  const [user,setUser] = useState({ name: "",email: "",password: "" });
 
 
   const submitForm = async (e) => {
     e.preventDefault();
-    
-    const { name, email, password } = user;
+
+    const { name,email,password } = user;
 
     // Fetch API
-    const response = await fetch(`http://localhost:5000/api/users/register`, {
+    const response = await fetch(`http://localhost:5000/api/users/register`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ name,email,password })
     });
 
     const json = await response.json();
-    console.log(json);
     if (json.success) {
+      await swal({
+        title: "Good job!",
+        text: "You have been registered successfully",
+        icon: "success",
+        button: "Login Now!",
+      });
       navigate('/login');
-      props.showAlert('Signup successfully...', 'success');
     } else {
-      props.showAlert(json.error, 'danger');
+      swal("OOPS!",`${json.error}`,"error");
     }
 
   }
 
   const onChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user,[e.target.name]: e.target.value });
   }
 
   return (

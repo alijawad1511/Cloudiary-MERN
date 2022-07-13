@@ -1,8 +1,9 @@
 import React,{ useContext,useState } from 'react'
 import { NoteContext } from '../contexts/NoteContext';
 import { useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
 
-const AddNote = ({ showAlert }) => {
+const AddNote = () => {
 
     let navigate = useNavigate();
 
@@ -16,9 +17,15 @@ const AddNote = ({ showAlert }) => {
     const submitForm = (e) => {
         e.preventDefault();
         addNote(note);
+        swal({
+            title: "Good job!",
+            text: "Your new note has been added successfully",
+            icon: "success",
+            button: "OK",
+        });
         setNote({ title: "",description: "" }); // empty all fields
         navigate('/');
-        showAlert('Note added...','success');
+        // showAlert('Note added...','success');
     }
 
 
