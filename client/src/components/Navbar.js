@@ -1,6 +1,7 @@
 import React,{ useEffect } from 'react';
 import { Link,useLocation,useNavigate } from 'react-router-dom';
 import logo from '../images/logo.png';
+import userProfile from '../images/user.png';
 
 
 const Navbar = () => {
@@ -38,12 +39,23 @@ const Navbar = () => {
                                 <Link className={`nav-link ${location.pathname === '/addnote' ? 'active' : ''}`} to="/addnote">Add Note</Link>
                             </li>
                         </ul>
-                        {
-                            localStorage.getItem('x-auth-token') ? <button onClick={handleLogout} className='btn btn-danger '><i className="fa-solid fa-right-from-bracket me-2"></i>Logout</button> : <div>
-                                <Link className='btn btn-secondary me-3' to='/login'>Login</Link>
-                                <Link className='btn btn-primary' to='/signup'>Sign Up</Link>
-                            </div>
-                        }
+                        <div>
+                            {
+                                localStorage.getItem('x-auth-token') ? (
+                                    <div className="dropdown">
+                                        <img src={userProfile} id="dropdownMenu" className='rounded-circle ms-2 dropdown-toggle' style={{ width: "50px",cursor: 'pointer' }} alt="" data-bs-toggle="dropdown" aria-expanded="false" />
+                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu">
+                                            <li><button class="dropdown-item" type="button"><i className="fa-solid fa-user me-2"></i>Profile</button></li>
+                                            <li><button class="dropdown-item" type="button"><i className="fa-solid fa-gear me-2"></i>Settings</button></li>
+                                            <li><button onClick={handleLogout} className='dropdown-item'><i className="fa-solid fa-right-from-bracket me-2"></i>Logout</button></li>
+                                        </ul>
+                                    </div>) :
+                                    (<div>
+                                        <Link className='btn btn-secondary me-3' to='/login'>Login</Link>
+                                        <Link className='btn btn-primary' to='/signup'>Sign Up</Link>
+                                    </div>)
+                            }
+                        </div>
                     </div>
                 </div>
             </nav>
