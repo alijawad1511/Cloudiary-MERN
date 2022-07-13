@@ -13,20 +13,21 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Alert from './components/Alert';
 import { useState } from 'react';
+import logo from './images/logo.png';
 
 
 function App() {
 
-  const [alert, setAlert] = useState(null);
+  const [alert,setAlert] = useState(null);
 
-  const showAlert = (message, type) => {
+  const showAlert = (message,type) => {
 
-    setAlert({ message, type });
+    setAlert({ message,type });
 
     // disapear alert after 1.5s
     setTimeout(() => {
       setAlert(null);
-    }, 3000);
+    },3000);
 
   }
 
