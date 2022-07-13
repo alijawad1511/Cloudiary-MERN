@@ -1,4 +1,4 @@
-# eCinema
+# eDiary
 
 #### If you like my work, please start following this project's author [Syed Ali Jawad](https://github.com/alijawad1511) and don't hesitate to give star⭐ to my project to show your ❤️❤️ and support
 
@@ -8,17 +8,20 @@
 LINK WILL BE PROVIDED SOON
 
 ## 🛠️ Built With:
-- HTML
-- CSS
-- JavaScript
+#### Frontend
 - Bootstrap
-- React JS
+- ReactJS
+
+#### Backend
 - NodeJS
 - ExpressJS
+
+#### Database
 - MongoDB
 
+
 ## 📝 About Project
-iNotebook is an app which can be used to write notes. You can write your daily routine
+eDiary is an app which can be used to write notes. You can write your daily routine
 and work which you think you can forget. You can see your notes anytime.
 
 # 📝 Quick Use
