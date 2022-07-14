@@ -2,11 +2,11 @@
 
 #### If you like my work, please start following this project's author [Syed Ali Jawad](https://github.com/alijawad1511) and don't hesitate to give star⭐ to my project to show your ❤️❤️ and support
 
-## THIS APPLICATION WILL BE HOSTED ON HEROKU SOON.
+## THIS APPLICATION IS HOSTED ON HEROKU
 
 ## 🌐 Link
 
-LINK WILL BE PROVIDED SOON
+https://cloudiary-mern.herokuapp.com
 
 ## 🛠️ Built With:
 
@@ -26,17 +26,16 @@ LINK WILL BE PROVIDED SOON
 
 ## 📝 About Project
 
-eDiary is an app which can be used to write notes. You can write your daily routine
-and work which you think you can forget. You can see your notes anytime.
+Cloudiary is an Application which can be used to store your personal notes on the cloud. Now you don't need to keep a diary with you to mention you daily work. We live in a busy world. We can't remember our every important work in mind due to budy routine. But don't worry, CLoudiary will help you. You can add your notes for your important work and can read your notes anytime for remembering about your important work.
 
 # 📝 Quick Use
 
 ```bash
-# Install Dependencies
-npm install
+# To Install Dependencies
+npm run install-dependencies
 
 # After installing dependecies
-npm start
+npm run dev
 ```
 
 ## 🖼️ Output Samples
