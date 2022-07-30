@@ -30,13 +30,40 @@ Cloudiary is an Application which can be used to store your personal notes on th
 
 # 📝 Quick Use
 
-```bash
-# To Install Dependencies
-npm run install-dependencies
 
-# After installing dependecies
-npm run dev
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://link-to-project
 ```
+
+Go to the project directory
+
+```bash
+  cd Cloudiary-MERN
+```
+
+Install client-side dependencies
+
+```bash
+  npm install client
+```
+
+Install server-side dependencies
+
+```bash
+  npm install server
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+
 
 ## 🖼️ Output Samples
 
